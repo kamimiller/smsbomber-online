@@ -1,0 +1,19 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "database",
+            "group": "working",
+            "database": "${workspaceFolder:Sms Bomber Online}/instance/database.db"
+        },
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "database",
+            "group": "working",
+            "database": "${workspaceFolder:Sms Bomber Online}/instance/database.db"
+        }
+    ],
+    "materialkv.pythonFile": "main.py"
+}

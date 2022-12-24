@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+
+{% block title %} Sms Bomber Online {% endblock title %}
+    
+{% block content %}
+
+    <div class="alert alert-warning" style="border-radius: 0;" role="alert">
+        <center>
+            <h1 class="alert-heading">Welcome To <strong>Sms Bomber Online</strong></h1>
+            <p class="lead">Sms Bomber Online Is A Free <strong>Sms Bombing</strong> Service.Which Helps You To Prank Your Friends,Sms Bomber Is Most Powerful Sms Bomber Over The Internet.Moreover It's Mobile Friendly & Easy To Use.</p>
+        </center>
+    </div>
+
+    <div class="container">
+
+        <div class="alert alert-danger alert-dismissible fade show d-flex align-items-center" role="alert">
+            <i class="bi flex-shrink-0 me-2 bi-exclamation-triangle-fill"></i>
+            <strong>Note:- </strong> We created this website for fun purpose. We dont have any intensionss to harm anyone.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+        <center>
+
+            <form action="" method="post" onsubmit="checkCheckBox(this)" class="mb-3">
+                {{ form.csrf_token }}
+                <div class="input-group">
+                    <span class="input-group-text bg-dark border-secondary text-secondary">+98</span>
+                    {{ form.number(class='form-control bg-dark border-secondary text-white', placeholder="Enter Number") }}
+                </div>
+                <br>
+                
+                <hr>
+
+                <div class="form-check">
+                    <input class="form-check-input float-none" id="checkagree" onchange="activateButton(this)" type="checkbox" value="" id="terms">  
+                    <label class="form-check-label" for="terms"><strong>I Agree <a href=" {{ url_for('terms') }} ">Terms & Coditions.</a></strong></label>
+                </div>
+
+                <hr>
+
+                <input class="btn btn-success btn-block" id="submit" type="submit" value="Send Now !">
+
+            </form>
+
+            <div class="alert alert-info"><strong>LAST UPDATE ON 12/15/2022</strong></div>
+
+            <hr>
+
+        </center>
+
+        <div class="card mb-3 bg-dark text-white">
+            <div class="card-header bg-danger text-white">
+                <i class="bi bi-chat-text-fill"></i><strong> What Is Sms Bomber? </strong>
+            </div>
+            <div class="card-body">
+                <h6>Sms Bomber is a prank tool, Which can send huge amount of Sms in one time. You can use it on your friends and irritate them.</h6>
+            </div>
+        </div>
+
+        <div class="card mb-3 bg-dark text-white">
+            <div class="card-header bg-primary text-white">
+                <i class="bi bi-chat-text-fill"></i><strong> How To Use Sms Bomber? </strong>
+            </div>
+            <div class="card-body">
+                <strong>Step 1:</strong> Enter the number you want to bomb on the above form. <br>
+                <strong>Step 2:</strong> Then press the submit button.
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        checkbox = document.getElementById("checkagree")
+        button = document.getElementById("submit")
+
+        function disableSubmit(){
+            button.disabled = true
+        }
+
+        function checkCheckBox(event){
+            console.log("Checking")
+            console.log(event)
+            return false
+        }
+
+        function activateButton(){
+            button.disabled = false
+        }
+
+        disableSubmit()
+    </script>
+
+{% endblock content %}

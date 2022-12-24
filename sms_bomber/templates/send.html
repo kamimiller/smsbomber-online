@@ -1,0 +1,17 @@
+{% extends 'base2.html' %}
+
+{% block title %} Sms Bomber Online {% endblock title %}
+
+{% block content %}
+    <div class="container mt-3">
+        <center>
+            <div class="alert alert-info" role="alert">
+                <h5><strong>Sms Bombing Started On {{ number }} !!</strong></h5>
+                <br>
+                <a href=" {{ url_for('stop') }} " class="btn btn-success">Stop Bombing</a>
+            </div>
+
+            <div class="alert alert-danger"><h6 class="mb-0">DO NOT DO ANYTHING HERE SMS WILL SEND AUTOMATICALLY!</h6></div>
+        </center>
+    </div>
+{% endblock content %}

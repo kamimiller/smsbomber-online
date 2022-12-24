@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+
+{% block title %} Sms Bomber Online {% endblock title %}
+    
+{% block content %}
+
+    <div class="alert alert-warning" style="border-radius: 0;" role="alert">
+        <center>
+            <h1 class="alert-heading">Welcome To <strong>Sms Bomber Online</strong></h1>
+            <p class="lead">Now bomb you friend's inbox using our sms bomber service, This is an prank application which can send spam Sms to targeted Number. Our Sms bomber is <strong>Free, Easy To Use</strong> and cross platform support.</p>
+        </center>
+    </div>
+
+    <div class="container">
+        <center>
+            <div class="alert alert-info" id="second">Redirecting To Sms Bombing Page in 10 seconds.</div>
+        </center>
+    </div>
+
+    <script>
+        secondDom = document.getElementById("second")
+        second = 10
+        function changeSecond(){
+            second = second - 1
+            secondDom.innerText = `Redirecting To Sms Bombing Page in ${second} seconds.`
+            console.log(second)
+            if (second == 0){
+                clearInterval(process)
+                window.location.href = window.location.origin + "/send/{{ task_id }}"
+            }
+        }
+        process = setInterval(changeSecond,1000)
+    </script>
+
+{% endblock content %}
