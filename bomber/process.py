@@ -67,7 +67,7 @@ class Bomber(Process):
         self.finish = 0
         self.isnotcurrect = 0
         
-    def startBomber(self, url: dict[str,dict]):
+    def startBomber(self, url):
         try:
             
             if url["method"] == "POST":
