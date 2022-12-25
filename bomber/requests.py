@@ -1,13 +1,14 @@
 import aiohttp,asyncio
+import requests as req
 
-async def getRequest(url,data):
+def getRequest(url):
     
-    async with aiohttp.ClientSession() as session:
+    with req.Session() as session:
         
-        async with session.get(url) as response:return response
+        with session.get(url) as response:return response
             
-async def postRequest(url,data):
+def postRequest(url,data):
     
-    async with aiohttp.ClientSession() as session:
+    with req.Session() as session:
 
-        async with session.get(url) as response:return response
+        with session.post(url, data=data) as response:return response

@@ -71,12 +71,12 @@ class Bomber(Process):
         try:
             
             if url["method"] == "POST":
+                result = postRequest(url["url"], data=url["paramet"])
                 
-                result = asyncio.run(postRequest(url["url"], data=url["paramet"]))
             elif url["method"] == "GET":
-                result = asyncio.run(getRequest(url["url"]))
+                result = getRequest(url["url"])
                 
-            if result.status == 200:
+            if result.status_code == 200:
                 self.finish += 1
             else: self.isnotcurrect += 1
                 
