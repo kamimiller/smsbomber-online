@@ -1,6 +1,7 @@
 from flask import render_template,redirect,url_for,session
 from bomber import process
 from sms_bomber import app
+from sms_bomber.models import Bomber
 from sms_bomber.forms import EnterNumber
 
 # -------------------- # Base Project Routes #-------------------- #
@@ -58,12 +59,13 @@ def stop(taskid):
         
     return "this task id not currect or finished bomber process"
 
-# -------------------- # Panel # -------------------- #
+@app.route("/test/create")
+def test():
+    Bomber.process = {
+        "message":"Hello World"
+    }
+    return "seted"
 
-@app.route("/account")
-def account():return render_template("account.html")
-
-# -------------------- # tract # -------------------- #
-
-@app.route("/tract")
-def tract():return render_template("tract.html")
+@app.route("/test/show")
+def test2():
+    return str(Bomber.process)
