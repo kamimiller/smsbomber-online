@@ -1,4 +1,3 @@
-import aiohttp,asyncio
 import requests as req
 
 def getRequest(url):

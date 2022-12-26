@@ -1,7 +1,7 @@
 from secrets import token_hex
 from multiprocessing import Process,cpu_count
 from concurrent.futures import ProcessPoolExecutor
-from bomber.requests import postRequest,getRequest,asyncio
+from bomber.requests import postRequest,getRequest
 
 class Bomber(Process):
     process = {}
