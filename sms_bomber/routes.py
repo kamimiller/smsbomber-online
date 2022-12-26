@@ -38,7 +38,7 @@ def sms():
 @app.route("/send/<id_task>")
 def send(id_task):
     try:
-        if process.Bomber.process.get(id_task)["process"]:
+        if process.Bomber.process.get(id_task):
             if process.Bomber.process.get(id_task)["status"] == "padding":
                 process.startBomber(id_task)
             return render_template("send.html", number=session.get("task")["target"], taskid=id_task)
