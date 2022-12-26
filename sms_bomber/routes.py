@@ -37,13 +37,26 @@ def sms():
 
 @app.route("/send/<id_task>")
 def send(id_task):
-    process.startBomber(id_task)
-    return render_template("send.html", number=session.get("task")["target"])
+    try:
+        if process.Bomber.process.get(id_task)["process"]:
+            if process.Bomber.process.get(id_task)["status"] == "padding":
+                process.startBomber(id_task)
+            return render_template("send.html", number=session.get("task")["target"], taskid=id_task)
+    except TypeError:
+        return "this task id not currect or finished bomber process"
+    
+    return "this task id not currect or finished bomber process"
 
-@app.route("/stop")
-def stop():
-    process.stopBomber(session.get("task")["task_id"])
-    return "Stoped !!"
+@app.route("/stop/<taskid>")
+def stop(taskid):
+    try:
+        if process.Bomber.process.get(taskid)["process"]:
+            process.stopBomber(taskid)
+            return "Stoped bomber"
+    except TypeError:
+        return "this task id not currect or finished process"
+        
+    return "this task id not currect or finished bomber process"
 
 # -------------------- # Panel # -------------------- #
 
