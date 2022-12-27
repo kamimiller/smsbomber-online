@@ -1,8 +1,8 @@
 from flask import render_template,redirect,url_for,session
-from bomber import process
 from sms_bomber import app
-from sms_bomber.models import Bomber
+from bomber import process
 from sms_bomber.forms import EnterNumber
+from secrets import token_hex
 
 # -------------------- # Base Project Routes #-------------------- #
 
@@ -11,8 +11,7 @@ def home():
     form = EnterNumber()
     if form.validate_on_submit():
         session["task"] = {
-            "task_id" : process.createBomber(form.number.data).name,
-            "target" : form.number.data,
+            "target": form.number.data
         }
         
         return redirect(url_for("sms"))
@@ -34,38 +33,15 @@ def contact():return render_template("contact.html")
 
 @app.route("/sms", methods=["GET"])
 def sms():
-    return render_template("sms.html",task_id=session.get("task")["task_id"])
+    return render_template("sms.html",task_id=session.get("task")["target"])
 
-@app.route("/send/<id_task>")
-def send(id_task):
+@app.route("/send/<target>")
+def send(target):
     try:
-        if process.Bomber.process.get(id_task):
-            if process.Bomber.process.get(id_task)["status"] == "padding":
-                process.startBomber(id_task)
-            return render_template("send.html", number=session.get("task")["target"], taskid=id_task)
+        if session.get("task")["target"]:
+            process.startBomber(target)
+            return render_template("send.html", number=target)
     except TypeError:
         return "this task id not currect or finished bomber process"
     
-    return "this task id not currect or finished bomber process"
-
-@app.route("/stop/<taskid>")
-def stop(taskid):
-    try:
-        if process.Bomber.process.get(taskid)["process"]:
-            process.stopBomber(taskid)
-            return "Stoped bomber"
-    except TypeError:
-        return "this task id not currect or finished process"
-        
-    return "this task id not currect or finished bomber process"
-
-@app.route("/test/create")
-def test():
-    Bomber.process = {
-        "message":"Hello World"
-    }
-    return "seted"
-
-@app.route("/test/show")
-def test2():
-    return str(Bomber.process)
+    return "this task id not currect"
