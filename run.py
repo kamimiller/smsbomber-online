@@ -6,5 +6,4 @@ if __name__ == '__main__':
     
     db = Database()
     
-    db.addRedeem("rootRedeem",datetime.now().timestamp())    
-    # app.run(debug=True)
+    app.run(debug=True)
