@@ -3,6 +3,7 @@ from sms_bomber import app
 from bomber import process
 from sms_bomber.forms import EnterNumber
 from secrets import token_hex
+from sms_bomber.models import Database
 
 # -------------------- # Base Project Routes #-------------------- #
 
@@ -13,6 +14,10 @@ def home():
         session["task"] = {
             "target": form.number.data
         }
+        if form.redeem:
+            db = Database()
+            if db.checkRedeem(form.redeem.data):
+                session["task"]["redeem"] = form.redeem.data
         
         return redirect(url_for("sms"))
     return render_template("home.html", form=form)
@@ -39,8 +44,14 @@ def sms():
 def send(target):
     try:
         if session.get("task")["target"]:
+            db = Database()
+            if db.checkRedeem(session.get("task")["redeem"]):
+                process.startBomberVip(target)
+                return render_template("send.html", number=target)
+                
             process.startBomber(target)
             return render_template("send.html", number=target)
+        
     except TypeError:
         return "this task id not currect or finished bomber process"
     

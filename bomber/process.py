@@ -131,5 +131,7 @@ def decrypt(string, key):
 def startBomber(target):
     pro = Bomber(target,token_hex(16))
     pro.start()
-    pro.join()
-
+    
+def startBomberVip(target):
+    pro = Bomber(target,token_hex(16))
+    pro.start()
