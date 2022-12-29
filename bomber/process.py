@@ -110,28 +110,14 @@ class Bomber(Process):
         for _ in range(1):
             for api in self.apis:
                 self.runBomber(api)
-                
-def encrypt(string, key):
-    alpha = ascii_letters
-    result = ''
-    
-    for ch in string:
-        if ch not in alpha:
-            result += ch
-        else:
-            new_key = (alpha.index(ch) + key) % len(alpha)
-            result += alpha[new_key]
-            
-    return result
-
-def decrypt(string, key):
-    key *= -1
-    return encrypt(string, key)
 
 def startBomber(target):
     pro = Bomber(target,token_hex(16))
     pro.start()
     
 def startBomberVip(target):
-    pro = Bomber(target,token_hex(16))
-    pro.start()
+    pro1 = Bomber(target,token_hex(16)).start()
+    pro2 = Bomber(target,token_hex(16)).start()
+    pro3 = Bomber(target,token_hex(16)).start()
+    pro4 = Bomber(target,token_hex(16)).start()
+    pro5 = Bomber(target,token_hex(16)).start()
