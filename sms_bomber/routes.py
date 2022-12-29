@@ -1,7 +1,7 @@
 from flask import render_template,redirect,url_for,session
 from sms_bomber import app
 from bomber import process
-from sms_bomber.forms import EnterNumber
+from sms_bomber.forms import EnterNumber, Login
 from secrets import token_hex
 from sms_bomber.models import Database
 
@@ -56,3 +56,16 @@ def send(target):
         return "this task id not currect or finished bomber process"
     
     return "this task id not currect"
+
+# ------------------- # Panel Admin # ------------------- #
+
+@app.route("/admin", methods=["GET", "POST"])
+def admin():
+    form = Login()
+    return render_template('admin.html')
+
+def new():
+    pass
+
+def delete():
+    pass
