@@ -24,10 +24,11 @@
 
             <form action="" method="post" onsubmit="checkCheckBox(this)" class="mb-3">
                 {{ form.csrf_token }}
-                <div class="input-group">
+                <div class="input-group mb-3">
                     <span class="input-group-text bg-dark border-secondary text-secondary">+98</span>
                     {{ form.number(class='form-control bg-dark border-secondary text-white', placeholder="Enter Number") }}
                 </div>
+                {{ form.redeem(class='form-control bg-dark border-secondary text-white', placeholder="Enter Redeem") }}
                 <br>
                 
                 <hr>

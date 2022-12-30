@@ -5,6 +5,13 @@
 {% block content %}
     <div class="container mt-3">
         <center>
+            
+            {% if vip_mode %}
+                
+            <div class="alert alert-warning" role="alert"><h3 class="mb-0">Vip Mode Enabled</h3></div>
+            
+            {% endif %}
+                
             <div class="alert alert-info" role="alert">
                 <h5 class="mb-0"><strong>Sms Bombing Started On {{ number }} !!</strong></h5>
             </div>

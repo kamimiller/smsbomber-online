@@ -14,30 +14,37 @@ class Database:
         if res_redeem != []:
             return True
         
+        self.connection.commit()
         self.connection.close()
         return False
     
-    def getInfoRedeemAll(self,redeem):
+    def getInfoRedeemAll(self):
         data = []
         self.cursor.execute("SELECT * FROM redeem")
         for i in self.cursor.fetchall():
             data.append(
                 {
-                    "redeem_code" : i["redeem_code"],
-                    "date_start" : datetime.fromtimestamp(i["date_start"]).strftime("%m/%d/%Y"),
-                    "date_end" : datetime.fromtimestamp(i["date_end"]).strftime("%m/%d/%Y"),
+                    "redeem_code" : i[0],
+                    "date_start" : datetime.fromtimestamp(i[1]).strftime("%m/%d/%Y"),
+                    "date_end" : datetime.fromtimestamp(i[2]).strftime("%m/%d/%Y"),
                 }
             )   
+            
+        self.connection.commit()
+        self.connection.close()
         return data
 
     def getInfoRedeem(self,redeem):
         self.cursor.execute(f"SELECT * FROM redeem WHERE redeem_code = '{redeem}'")
         redeem_info = self.cursor.fetchone()
+        self.connection.commit()
+        self.connection.close()
         return {
-            "redeem_code" : redeem_info["redeem_code"],
-            "date_start" : datetime.fromtimestamp(redeem_info["date_start"]).strftime("%m/%d/%Y"),
-            "date_end" : datetime.fromtimestamp(redeem_info["date_end"]).strftime("%m/%d/%Y"),
+            "redeem_code" : redeem_info[0],
+            "date_start" : redeem_info[1],
+            "date_end" : redeem_info[2],
         }
+        
     
     def addRedeem(self,redeem,date):
         self.cursor.execute(f"INSERT INTO redeem VALUES ('{redeem}','{datetime.now().timestamp()}','{date}')")

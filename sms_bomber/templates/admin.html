@@ -3,12 +3,17 @@
 {% block title %}Login Panel{% endblock title %}
 
 {% block content %}
-<div class="d-flex justify-content-center align-items-center">
-    <div class="card bg-dark border-secondery p-3">
+<div class="d-flex justify-content-center aligns-items-center mt-5">
+    <div class="card bg-dark border-secondery p-3 shadow">
         <h3>Login</h3>
         <p>please typing information username and password to field</p>
         <form action="" method="post">
-            
+            {{form.csrf_token}}
+            {{form.username(class="form-control bg-dark text-white border-secondary mb-3", placeholder="Enter Username")}}
+            {{form.password(class="form-control bg-dark text-white border-secondary mb-3", placeholder="Enter Password")}}
+            <div class='d-grid'>
+                {{form.submit(class="btn btn-primary")}}
+            </div>
         </form>
     </div>
 </div>

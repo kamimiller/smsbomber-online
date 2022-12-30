@@ -1,0 +1,40 @@
+{% extends 'base2.html' %}
+
+{% block title %}Panel Admin{% endblock title %}
+
+{% block content %}
+    <div class="container mt-3">
+        <h3>Redeem List</h3>
+        <p class="mb-5">This is list redeems to database and for enabled vip mode sms bomber online</p>
+        <table class="table table-hover table-dark">
+            <thead>
+                <th>Redeem</th>
+                <th>Date Start</th>
+                <th>Date End</th>
+                <th>Commands</th>
+            </thead>
+            <tbody>
+                
+                {% for redeem in redeems %}
+                <tr>
+                    <th>{{redeem["redeem_code"]}}</th>
+                    <td>{{redeem["date_start"]}}</td>
+                    <td>{{redeem["date_end"]}}</td>
+                    <td><a href="{{url_for('delete',redeem=redeem['redeem_code'])}}" class="btn btn-danger"><i class="bi bi-trash"></i></a></td>
+                </tr>
+                {% endfor %}
+                <tr>
+                    <form action="{{url_for('new')}}" method="post">
+                        {{csrf_token}}
+                        <td>{{form.redeem(class="form-control bg-dark border-secondary text-white", placeholder="Enter Redeem")}}</td>
+                        <td>{{date}}</td>
+                        <td>{{form.date_end(class="form-control bg-dark border-secondary text-white")}}</td>
+                        <td>
+                            <button class="btn btn-success" type="submit"><i class="bi bi-pen"></i></button>
+                        </td>
+                    </form>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+{% endblock content %}
