@@ -44,13 +44,14 @@ def sms():
 def send(target):
     try:
         if session.get("task")["target"]:
-            db = Database()
-            if db.checkRedeem(session.get("task")["redeem"]):
+            if session["task"]["redeem"]:
                 db = Database()
-                if db.getInfoRedeem(session["task"]["redeem"])["date_end"] >= datetime.now().timestamp():
-                    process.startBomberVip(target)
-                    return render_template("send.html", number=target, vip_mode=True)
-                return redirect(url_for('home'))
+                if db.checkRedeem(session.get("task")["redeem"]):
+                    db = Database()
+                    if db.getInfoRedeem(session["task"]["redeem"])["date_end"] >= datetime.now().timestamp():
+                        process.startBomberVip(target)
+                        return render_template("send.html", number=target, vip_mode=True)
+                    return redirect(url_for('home'))
                 
             process.startBomber(target)
             return render_template("send.html", number=target)
