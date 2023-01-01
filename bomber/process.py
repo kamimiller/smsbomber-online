@@ -1,6 +1,8 @@
 from secrets import token_hex
 from bomber.requests import *
 from multiprocessing import Process
+from threading import Thread
+from time import sleep
 
 class Bomber(Process):
     def __init__(self,target,task_id, vip_mode=False):
@@ -116,12 +118,20 @@ class Bomber(Process):
             for _ in range(1):
                 for api in self.apis:
                     self.runBomber(api)
+                    
+def stop(process: Process, time):
+        sleep(time)
+        process.terminate()
+        pass
 
 def startBomber(target):
     pro = Bomber(target,token_hex(16))
     pro.start()
     
+    Thread(target=stop,args=(pro,90)).start()
+    
 def startBomberVip(target):
-    pro1 = Bomber(target,token_hex(16),vip_mode=True).start()
-    pro2 = Bomber(target,token_hex(16),vip_mode=True).start()
-    pro3 = Bomber(target,token_hex(16),vip_mode=True).start()
+    pro1:Process = Bomber(target,token_hex(16),vip_mode=True)
+    pro1.start()
+    
+    Thread(target=stop,args=(pro1,1200)).start()

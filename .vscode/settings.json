@@ -15,5 +15,6 @@
             "database": "${workspaceFolder:Sms Bomber Online}/instance/database.db"
         }
     ],
-    "materialkv.pythonFile": "main.py"
+    "materialkv.pythonFile": "main.py",
+    "sqltools.useNodeRuntime": true
 }

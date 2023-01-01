@@ -5,7 +5,7 @@ from sms_bomber.forms import EnterNumber, Login, Redeem
 from sms_bomber.models import Database
 from datetime import datetime
 
-# -------------------- # Base Project Routes #-------------------- #
+# -------------------- # Base Project Routes #-------------------- # 
 
 @app.route("/",methods=["POST","GET"])
 def home():
@@ -44,19 +44,22 @@ def sms():
 def send(target):
     try:
         if session.get("task")["target"]:
-            if session["task"]["redeem"]:
-                db = Database()
-                if db.checkRedeem(session.get("task")["redeem"]):
+            print("success")
+            try:
+                if session['task']["redeem"]:
                     db = Database()
-                    if db.getInfoRedeem(session["task"]["redeem"])["date_end"] >= datetime.now().timestamp():
-                        process.startBomberVip(target)
-                        return render_template("send.html", number=target, vip_mode=True)
-                    return redirect(url_for('home'))
+                    if db.checkRedeem(session.get("task")["redeem"]):
+                        db = Database()
+                        if db.getInfoRedeem(session["task"]["redeem"])["date_end"] >= datetime.now().timestamp():
+                            process.startBomberVip(target)
+                            return render_template("send.html", number=target, vip_mode=True)
+                        return redirect(url_for('home'))
+            except:pass
                 
             process.startBomber(target)
             return render_template("send.html", number=target)
         
-    except TypeError:
+    except TypeError as Error:
         return "this task id not currect or finished bomber process"
     
     return "this task id not currect"
